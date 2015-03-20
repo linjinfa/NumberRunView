@@ -17,8 +17,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         numberRunView = (NumberRunView) findViewById(R.id.numberRunView);
-//        numberRunView.setShowNum("83218.918899",3);
-        numberRunView.setShowNum("221.918899");
+        numberRunView.setShowNum("83218.918899",3);
+        numberRunView.setRunCount(200);
+//        numberRunView.setShowNum("221.918899");
         numberRunView.startRun();
     }
 
