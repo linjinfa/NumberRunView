@@ -17,9 +17,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         numberRunView = (NumberRunView) findViewById(R.id.numberRunView);
-        numberRunView.setText("1234.0875");
-        numberRunView.setDecimals(2);
-        numberRunView.setRunCount(30);
+//        numberRunView.setShowNum("83218.918899",3);
+        numberRunView.setShowNum("221.918899");
         numberRunView.startRun();
     }
 

@@ -29,7 +29,7 @@ public class NumberRunView extends TextView {
     /**
      * 跑的次数
      */
-    private final int RUN_COUNT = 100;
+    private final int RUN_COUNT = 40;
     private float speed;
     private float startNum;
     private float endNum;
@@ -82,15 +82,14 @@ public class NumberRunView extends TextView {
     }
 
     /**
-     * 重新计算图片的位置
-     *
+     * 开始数字跳动动画
      * @return 动画是否结束
      */
     private boolean running() {
-        setText(withDEC(startNum+"") + "");
+        setText(withDEC(String.valueOf(startNum)) + "");
         startNum +=speed;
         if(startNum >= endNum){
-            setText(withDEC(endNum+"")+"");
+            setText(withDEC(String.valueOf(endNum)) + "");
             return true;
         }
         return false;
@@ -101,7 +100,7 @@ public class NumberRunView extends TextView {
      * @return
      */
     private float getSpeed(){
-        float speedFloat = withDEC((endNum/RUN_COUNT)+"").floatValue();
+        float speedFloat = withDEC(String.valueOf(endNum/runCount)).floatValue();
         return speedFloat;
     }
 
@@ -118,12 +117,33 @@ public class NumberRunView extends TextView {
     }
 
     /**
-     * 取整四舍五入 保留两位小数
+     * 取整四舍五入 保留小数
      * @param num
      * @return
      */
     private BigDecimal withDEC(String num){
         return new BigDecimal(num).setScale(decimals, BigDecimal.ROUND_HALF_UP);
+    }
+
+    /**
+     * 设置显示的数字
+     * @param num
+     */
+    public void setShowNum(String num){
+        setShowNum(num,DECIMALS_COUNT);
+    }
+
+    /**
+     * 设置显示的数字
+     * @param num
+     * @param decimals  要保留的小数位
+     */
+    public void setShowNum(String num,int decimals){
+        if(!isNumber(num)){
+            return;
+        }
+        setText(num);
+        setDecimals(decimals);
     }
 
     /**
@@ -143,11 +163,15 @@ public class NumberRunView extends TextView {
         return decimals;
     }
 
+    /**
+     * 设置保留的小数位     0:不保留小数
+     * @param decimals
+     */
     public void setDecimals(int decimals) {
-        if(decimals<0){
-            return ;
+        if(decimals>=0){
+            this.decimals = decimals;
         }
-        this.decimals = decimals;
+        setText(withDEC(getText().toString())+"");
     }
 
     public int getRunCount() {
@@ -176,4 +200,5 @@ public class NumberRunView extends TextView {
     public void setDelayMillis(int delayMillis) {
         this.delayMillis = delayMillis;
     }
+
 }
